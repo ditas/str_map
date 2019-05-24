@@ -11,7 +11,7 @@ And you have to get the "c" value
 ```elixir
 StrMap.get!(m, "a.b.c") # 1
 ```
-That's it
+That's it. \n
 Now let's say the value under the "c" key is a list
 ```elixir
 m = %{"a" => %{"b" => %{"c" => [1,2,3]}, "b1" => 2}, "a1" => 3}
