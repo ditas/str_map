@@ -36,8 +36,6 @@ StrMap.put!(m, "a.b.c.[1]", :test) # %{"a" => %{"b" => %{"c" => [1,:test,3]}, "b
 ```
 If you want to add/replace some element
 ```elixir
-m = StrMap.put!(m, "a.b.c.[1]", :test) # %{"a" => %{"b" => %{"c" => %{"d" => :test}}, "b1" => 2}, "a1" => 3}
-
 m = StrMap.put!(m, "a.b.c.d", [4,5,6]) # %{"a" => %{"b" => %{"c" => %{"d" => [4, 5, 6]}}, "b1" => 2}, "a1" => 3}
 
 m = StrMap.put!(m, "a.b.c.d.[1].e", :test) # %{"a" => %{"b" => %{"c" => %{"d" => [4, %{"e" => :test}, 6]}}, "b1" => 2},"a1" => 3}
