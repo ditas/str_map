@@ -20,7 +20,7 @@ We'd like to get the second element of the list (starting from 0)
 ```elixir
 StrMap.get!(m, "a.b.c.[1]") # 2
 ```
-Okay, seems legit
+Okay, seems legit. 
 If we want to add some elements into the map
 ```elixir
 StrMap.put!(m, "a.b.c.[3]", :test) # %{"a" => %{"b" => %{"c" => [1,2,3,:test]}, "b1" => 2}, "a1" => 3}
@@ -29,7 +29,7 @@ Basically, we can do something like this
 ```elixir
 StrMap.put!(m, "a.b.c.[999]", :test) # %{"a" => %{"b" => %{"c" => [1,2,3,:test]}, "b1" => 2}, "a1" => 3}
 ```
-We'll get the incoming value as the last element of the list
+We'll get the incoming value as the last element of the list. 
 And we can update our map
 ```elixir
 StrMap.put!(m, "a.b.c.[1]", :test) # %{"a" => %{"b" => %{"c" => [1,:test,3]}, "b1" => 2}, "a1" => 3}
