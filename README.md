@@ -12,7 +12,6 @@ And you have to get the "c" value
 StrMap.get!(m, "a.b.c") # 1
 ```
 That's it. 
-
 Now let's say the value under the "c" key is a list
 ```elixir
 m = %{"a" => %{"b" => %{"c" => [1,2,3]}, "b1" => 2}, "a1" => 3}
@@ -21,7 +20,7 @@ We'd like to get the second element of the list (starting from 0)
 ```elixir
 StrMap.get!(m, "a.b.c.[1]") # 2
 ```
-Okay, seems legit. 
+Okay, seems legit.
 If we want to add some elements into the map
 ```elixir
 StrMap.put!(m, "a.b.c.[3]", :test) # %{"a" => %{"b" => %{"c" => [1,2,3,:test]}, "b1" => 2}, "a1" => 3}
