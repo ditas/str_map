@@ -1,13 +1,19 @@
 defmodule StrMap do
     @moduledoc false
 
-    def get!(map, path_to_elem) do
+    def get(map, path_to_elem) do
         path = parse_path(path_to_elem)
+
+#        IO.inspect(path)
+
         get_element(path, map)
     end
 
     def put!(map, path_to_elem, value) do
         path = parse_path(path_to_elem)
+
+#        IO.inspect(path)
+
         set_element(path, map, value, [{:base, map}], nil)
     end
 
@@ -27,7 +33,13 @@ defmodule StrMap do
                 {num, _} = Integer.parse(str_num)
                 num
             [h] ->
-                h
+                case String.split(h, "#") do
+                    [_, str_num] ->
+                        {num, _} = Integer.parse(str_num)
+                        {num, :int_key}
+                    [h1] ->
+                        h1
+                end
         end
         parse_path(pt, acc ++ [key])
     end
@@ -35,10 +47,16 @@ defmodule StrMap do
     defp get_element([], data) do
         data
     end
+    defp get_element(_, nil) do
+        nil
+    end
     defp get_element([h|t], data) do
         el = case is_integer(h) do
             true ->
                 Enum.at(data, h)
+            false when is_tuple(h) ->
+                {i, :int_key} = h
+                Map.get(data, i)
             false ->
                 Map.get(data, h)
         end
@@ -52,6 +70,10 @@ defmodule StrMap do
             false -> %{}
         end
 
+#        IO.inspect(data)
+#        IO.puts("-----F----\n")
+#        IO.inspect(final)
+
         el1 = case is_integer(h) do
             true ->
                 set_list_element(h, data, value)
@@ -59,9 +81,17 @@ defmodule StrMap do
                 Map.put(data, h, value)
         end
         final1 = [{prev_h, el1}|final]
+
+#        IO.inspect(final1)
+
         combine(final1)
     end
     defp set_element([h|t], data, value, final, _) do
+
+#        IO.inspect(data)
+#        IO.puts("-----R----\n")
+#        IO.inspect(final)
+
         el = case is_integer(h) do
             true ->
                 Enum.at(data, h)
@@ -74,7 +104,7 @@ defmodule StrMap do
     defp combine([{k,m},{:base, m1}]) do
         Map.put(m1, k, m)
     end
-    defp combine([{k,m},{k1,m1}|t]) when k == k1 do
+    defp combine([{k,m},{k1,_m1}|t]) when k == k1 do
         m2 = m
         combine([{k1, m2}|t])
     end
